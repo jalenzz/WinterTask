@@ -44,3 +44,25 @@ channels.at(i) // 012 BGR
 merge(channels, mergeIMG);
 ```
 
+### 5
+
+```c++
+// 读取摄像头
+VideoCapture capture(0);
+capture >> frame;
+
+// 判断摄像头是否打开
+capture.isOpened()
+
+// 判断图片是否读取成功
+frame.empty()
+bool Mat::empty() const {
+    return data == 0 || total() == 0 || dims == 0;
+}
+
+// 在图像上显示文字
+putText(img, text, position, fontFace, fontScale, color);
+
+// 获取帧率
+capture.get(CAP_PROP_FPS)
+```

@@ -1,6 +1,6 @@
-#include "task.h"
+#include "OpenCVTask.h"
 
 int main() {
-    task4();
+    task5();
     return 0;
 }

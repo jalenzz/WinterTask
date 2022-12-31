@@ -9,6 +9,6 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(WinterTask main.cpp task.cpp task.h)
+add_executable(WinterTask main.cpp OpenCVTask.cpp OpenCVTask.h)
 
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
