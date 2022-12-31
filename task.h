@@ -7,5 +7,6 @@
 
 void task1();
 void task2(); // Task 2&&3
+void task4();
 
 #endif //WINTERTASK_TASK_H

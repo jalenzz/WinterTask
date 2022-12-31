@@ -31,3 +31,16 @@ img.at<Vec3b>(i, j) = Vec3b(average, average, average);
 `clone()` 实际上是新建一个 `Mat m` 然后执行 `CopyTo`，再返回 `m`。
 
 ![1-2](./res/Screenshots/1-2.png)
+
+### 4
+
+```c++
+// 通道分离
+split(src, channels);
+
+channels.at(i) // 012 BGR
+
+// 通道合并
+merge(channels, mergeIMG);
+```
+
