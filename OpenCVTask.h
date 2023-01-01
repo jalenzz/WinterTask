@@ -9,5 +9,6 @@ void task1();
 void task2(); // Task 2&&3
 void task4();
 void task5();
+void task6();
 
 #endif //WINTERTASK_OPENCVTASK_H

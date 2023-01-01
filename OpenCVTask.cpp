@@ -116,8 +116,22 @@ void task5() {
                 Point(20, 20),        // 第一个字左下角位置
                 FONT_HERSHEY_SIMPLEX,   // 字体类型
                 1,                     // 字体大小
-                CV_RGB(0, 0, 0));         // 字体颜色);
+                CV_RGB(0, 0, 0));         // 字体颜色;
         imshow("task5", frame);
         key = waitKey(30);  // 延时30
     }
+}
+
+#define BLACK Scalar(0, 0, 0)
+
+void task6() {
+    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/test/1.jpg");
+
+    circle(src, Point(100, 100), 50, BLACK);
+    line(src, Point(0, 0), Point(100, 100), BLACK);
+    rectangle(src, Point(200, 200), Point(300, 300), BLACK, -1);
+
+
+    imshow("task6", src);
+    waitKey(0);
 }

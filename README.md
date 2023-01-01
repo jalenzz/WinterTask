@@ -66,3 +66,21 @@ putText(img, text, position, fontFace, fontScale, color);
 // 获取帧率
 capture.get(CAP_PROP_FPS)
 ```
+
+
+### 6
+
+```c++
+// thickness < 0 颜色填充
+void circle(InputOutputArray img, Point center, int radius,
+            const Scalar& color, int thickness = 1,
+            int lineType = LINE_8, int shift = 0);
+
+void line(InputOutputArray img, Point pt1, Point pt2, const Scalar& color,
+          int thickness = 1, int lineType = LINE_8, int shift = 0);
+
+
+void rectangle(InputOutputArray img, Point pt1, Point pt2,
+               const Scalar& color, int thickness = 1,
+               int lineType = LINE_8, int shift = 0);
+```
