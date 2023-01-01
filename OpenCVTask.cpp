@@ -158,3 +158,14 @@ void task7() {
     imshow("task7", src);
     waitKey(0);
 }
+
+void task8() {
+    Mat HSVMat, Red, Red1, Red2;
+    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/8.png");
+
+    cvtColor(src, HSVMat, COLOR_BGR2HSV);
+    inRange(HSVMat, Scalar(0, 43, 46), Scalar(10, 255, 255), Red);
+
+    imshow("task8", Red);
+    waitKey(0);
+}

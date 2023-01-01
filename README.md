@@ -95,3 +95,13 @@ GammaTable[i] = p * 256 - 0.5; // 反归一化
 ```
 
 从显示效果上来看可以让人眼所看到的黑白对比增加，应该是相当于增加了对比度吧，在应用中的化可以让我们看黑暗中的东西看得更清楚
+
+### 8
+
+HSV 转换，颜色提取
+
+```c++
+cvtColor(src, HSVMat, COLOR_BGR2HSV);
+
+inRange(hsvMat, Scalar(minH, minS, minV), Scalar(maxH, maxS, maxV), detectMat);
+```
