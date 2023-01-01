@@ -105,11 +105,11 @@ void task5() {
         if (key == (int)'q') break;
         capture >> frame;
 
-        //判断是否读取图片
-        if (!frame.empty()) {
-            printf("Get img failed");
-            return;
-        }
+        //判断是否读取图片 可能是那个 WARN 的问题，没办法判断
+//        if (!frame.empty()) {
+//            printf("Get img failed");
+//            return;
+//        }
 
         putText(frame,
                 std::to_string(capture.get(CAP_PROP_FPS)),  // 文字
@@ -133,5 +133,28 @@ void task6() {
 
 
     imshow("task6", src);
+    waitKey(0);
+}
+
+uint8_t GammaTable[256];
+void buildGammaTable(float fPrecompensation) {
+    for(int i=0; i<256; i++) {
+        float f = (i + 0.5) / 256; // 归一化
+        float p = pow(f, fPrecompensation); // 预补偿
+        GammaTable[i] = p * 256 - 0.5; // 反归一化
+    }
+}
+void task7() {
+    float fGamma = 2.2;
+    buildGammaTable(1/fGamma);
+    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/7-1.png");
+    for (int i = 0; i < src.rows; ++i) {
+        for (int j = 0; j < src.cols; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                src.at<Vec3b>(i, j)[k] = GammaTable[src.at<Vec3b>(i, j)[k]];
+            }
+        }
+    }
+    imshow("task7", src);
     waitKey(0);
 }

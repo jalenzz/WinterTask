@@ -11,4 +11,7 @@ void task4();
 void task5();
 void task6();
 
+void buildGamaTable(float fPrecompensation);
+void task7();
+
 #endif //WINTERTASK_OPENCVTASK_H

@@ -84,3 +84,14 @@ void rectangle(InputOutputArray img, Point pt1, Point pt2,
                const Scalar& color, int thickness = 1,
                int lineType = LINE_8, int shift = 0);
 ```
+
+### 7
+
+Gamma 矫正
+```c++
+float f = (i + 0.5) / 256; // 归一化
+float p = pow(f, fPrecompensation); // 预补偿
+GammaTable[i] = p * 256 - 0.5; // 反归一化
+```
+
+从显示效果上来看可以让人眼所看到的黑白对比增加，应该是相当于增加了对比度吧，在应用中的化可以让我们看黑暗中的东西看得更清楚
