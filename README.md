@@ -80,6 +80,7 @@ void line(InputOutputArray img, Point pt1, Point pt2, const Scalar& color,
           int thickness = 1, int lineType = LINE_8, int shift = 0);
 
 
+// (Point pt1, Point pt2) -> Rect(x, y, width, height)
 void rectangle(InputOutputArray img, Point pt1, Point pt2,
                const Scalar& color, int thickness = 1,
                int lineType = LINE_8, int shift = 0);
@@ -130,3 +131,48 @@ const Scalar& borderValue = morphologyDefaultBorderValue() );
 相对亮的区域来说,
 开运算，把小的断断续续的亮处给断开，这就需要先通过腐蚀去掉小亮点，再通过膨胀恢复原来的大片连续亮区。
 闭运算就是把原来断断续续的亮区给闭合，这就需要通过膨胀扩大亮区，之后通过腐蚀恢复大片连续暗区
+
+### 10 && 11
+
+[threshold](https://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/tutorials/imgproc/threshold/threshold.html)
+```c++
+// 二值化
+// type: enum ThresholdTypes
+double threshold( InputArray src, OutputArray dst,
+                  double thresh, double maxval, int type );
+```
+
+形态学梯度：膨胀图与腐蚀图之差，提取物体边缘
+
+顶帽：原图像-开运算图，突出原图像中比周围亮的区域
+
+黑帽：闭运算图-原图像，突出原图像中比周围暗的区域
+
+```c++
+void morphologyEx( InputArray src, OutputArray dst,
+                   int op, InputArray kernel,
+                   Point anchor=Point(-1,-1), int iterations=1,
+                   int borderType=BORDER_CONSTANT,
+                   const Scalar& borderValue=morphologyDefaultBorderValue() );
+
+/* op:
+ * MORPH_OPEN – 开运算
+ * MORPH_CLOSE – 闭运算
+ * MORPH_GRADIENT - 形态学梯度
+ * MORPH_TOPHAT - 顶帽
+ * MORPH_BLACKHAT - 黑帽
+ */
+```
+
+```c++
+// 用指针遍历
+int *t = stats.ptr<int>(i);
+```
+
+```c++
+// 返回连通块个数
+// stats nx5 四边形的 x y width height
+int connectedComponentsWithStats(InputArray image, OutputArray labels,
+                                 OutputArray stats, OutputArray centroids,
+                                 int connectivity = 8, int ltype = CV_32S);
+```

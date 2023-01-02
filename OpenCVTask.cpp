@@ -192,6 +192,47 @@ void task9() {
     imshow("dilate", dilateMat);
     imshow("open", openMat);
     imshow("close", closeMat);
+    waitKey(0);
+}
 
+void task10() {
+    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/10.png");
+    Mat srcGray, srcThreshold, labelsMat, stats, centroids;
+    // 转为灰度 二值化
+    cvtColor( src, srcGray, COLOR_BGR2GRAY );
+    threshold(srcGray, srcThreshold, 85, 255, THRESH_BINARY);
+
+    // 检测连通块
+    int cnt = connectedComponentsWithStats(srcThreshold, labelsMat, stats, centroids);
+
+    for (int i = 0; i < cnt; ++i) {
+        // 用指针遍历
+        int *t = stats.ptr<int>(i);
+        rectangle(src, Rect(*t, *(t+1), *(t+2), *(t+3)),
+                  Scalar(0, 0, 0), 2);
+    }
+
+    std::cout << cnt;
+    imshow("task10", src);
+    waitKey(0);
+}
+
+void task11() {
+    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/11.png");
+    Mat srcGray, srcThreshold, labelsMat, stats, centroids;
+
+    cvtColor( src, srcGray, COLOR_BGR2GRAY );
+    threshold(srcGray, srcThreshold, 85, 255, THRESH_BINARY_INV);
+
+    int cnt = connectedComponentsWithStats(srcThreshold, labelsMat, stats, centroids);
+
+    for (int i = 1; i < cnt; ++i) {
+        int *t = stats.ptr<int>(i);
+        rectangle(src, Rect(*t, *(t+1), *(t+2), *(t+3)),
+                  Scalar(0, 0, 0), 2);
+    }
+
+    std::cout << cnt;
+    imshow("task11", src);
     waitKey(0);
 }
