@@ -176,3 +176,11 @@ int connectedComponentsWithStats(InputArray image, OutputArray labels,
                                  OutputArray stats, OutputArray centroids,
                                  int connectivity = 8, int ltype = CV_32S);
 ```
+
+### 12
+
+```c++
+blur(frame, blurMat, Size size);
+medianBlur(frame, medianBlurMat, int size);
+GaussianBlur(frame, GaussianBlurMat, Size size, x, y);
+```

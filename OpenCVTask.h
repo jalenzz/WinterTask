@@ -18,5 +18,6 @@ void task8();
 void task9();
 void task10();
 void task11();
+void task12();
 
 #endif //WINTERTASK_OPENCVTASK_H
