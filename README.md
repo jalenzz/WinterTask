@@ -184,3 +184,11 @@ blur(frame, blurMat, Size size);
 medianBlur(frame, medianBlurMat, int size);
 GaussianBlur(frame, GaussianBlurMat, Size size, x, y);
 ```
+
+### 13
+
+[Canny](https://www.aiuai.cn/aifarm482.html)
+
+```c++
+Canny(grayMat, edgeMat, edgeThresh, edgeThresh * 3);
+```
