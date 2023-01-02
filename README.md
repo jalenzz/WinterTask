@@ -105,3 +105,28 @@ cvtColor(src, HSVMat, COLOR_BGR2HSV);
 
 inRange(hsvMat, Scalar(minH, minS, minV), Scalar(maxH, maxS, maxV), detectMat);
 ```
+
+### 9
+
+[腐蚀、膨胀、开闭运算](https://zhuanlan.zhihu.com/p/164619939)
+
+```c++
+// 获取结构元素
+// shape: MORPH_RECT  MORPH_CROSS MORPH_ELLIPSE
+// Size: Size(x, y)
+Mat getStructuringElement(int shape, Size ksize, Point anchor = Point(-1,-1));
+
+// erode 腐蚀  dilate 膨胀  kernel 结构元素
+void erode( InputArray src, OutputArray dst, InputArray kernel,
+Point anchor = Point(-1,-1), int iterations = 1,
+int borderType = BORDER_CONSTANT,
+const Scalar& borderValue = morphologyDefaultBorderValue() );
+```
+
+开运算：先腐蚀后膨胀
+
+闭运算：先膨胀后腐蚀 *欲使其自闭，必先让其膨胀*
+
+相对亮的区域来说,
+开运算，把小的断断续续的亮处给断开，这就需要先通过腐蚀去掉小亮点，再通过膨胀恢复原来的大片连续亮区。
+闭运算就是把原来断断续续的亮区给闭合，这就需要通过膨胀扩大亮区，之后通过腐蚀恢复大片连续暗区
