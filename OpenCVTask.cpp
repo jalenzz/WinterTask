@@ -9,7 +9,7 @@
 using namespace cv;
 
 void task1() {
-    Mat img = imread("/home/jalen/code/Visual_Group/WinterTask/res/test/1.jpg");
+    Mat img = imread("../res/test/1.jpg");
     int c = img.cols, r = img.rows;
 
 
@@ -36,7 +36,7 @@ void task1() {
 void task2() {
     int key = 0;
     uchar threshold = 100;
-    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/test/1.jpg");
+    Mat src = imread("../res/test/1.jpg");
 
     while (key != (int)'q') { // q 退出
         // 深拷贝
@@ -68,7 +68,7 @@ void task2() {
 }
 
 void task4() {
-    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/test/1.jpg");
+    Mat src = imread("../res/test/1.jpg");
     std::vector<Mat> channels;
     Mat mergeIMG;
 
@@ -125,7 +125,7 @@ void task5() {
 #define BLACK Scalar(0, 0, 0)
 
 void task6() {
-    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/test/1.jpg");
+    Mat src = imread("../res/test/1.jpg");
 
     circle(src, Point(100, 100), 50, BLACK);
     line(src, Point(0, 0), Point(100, 100), BLACK);
@@ -147,7 +147,7 @@ void buildGammaTable(float fPrecompensation) {
 void task7() {
     float fGamma = 2.2;
     buildGammaTable(1/fGamma);
-    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/7-1.png");
+    Mat src = imread("../res/7-1.png");
     for (int i = 0; i < src.rows; ++i) {
         for (int j = 0; j < src.cols; ++j) {
             for (int k = 0; k < 3; ++k) {
@@ -161,7 +161,7 @@ void task7() {
 
 void task8() {
     Mat HSVMat, Red, Red1, Red2;
-    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/8.png");
+    Mat src = imread("../res/8.png");
 
     cvtColor(src, HSVMat, COLOR_BGR2HSV);
     inRange(HSVMat, Scalar(0, 43, 46), Scalar(10, 255, 255), Red);
@@ -171,7 +171,7 @@ void task8() {
 }
 
 void task9() {
-    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/9.png");
+    Mat src = imread("../res/9.png");
     Mat erodeStruct, dilateStruct, erodeMat, dilateMat, openMat, closeMat;
 
     // 结构元素
@@ -196,7 +196,7 @@ void task9() {
 }
 
 void task10() {
-    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/10.png");
+    Mat src = imread("../res/10.png");
     Mat srcGray, srcThreshold, labelsMat, stats, centroids;
     // 转为灰度 二值化
     cvtColor( src, srcGray, COLOR_BGR2GRAY );
@@ -218,7 +218,7 @@ void task10() {
 }
 
 void task11() {
-    Mat src = imread("/home/jalen/code/Visual_Group/WinterTask/res/11.png");
+    Mat src = imread("../res/11.png");
     Mat srcGray, srcThreshold, labelsMat, stats, centroids;
 
     cvtColor( src, srcGray, COLOR_BGR2GRAY );
