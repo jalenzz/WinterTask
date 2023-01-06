@@ -26,4 +26,8 @@ void task13();
 void task14_1();
 void task14_2();
 
+void f();
+Mat f1();
+Mat f2();
+Mat f3();
 #endif //WINTERTASK_TASK_H
