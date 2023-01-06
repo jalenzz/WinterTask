@@ -15,7 +15,7 @@ img.at<Vec3b>(i, j) = Vec3b(average, average, average);
 
 图片变灰
 
-![1-1](./res/Screenshots/1-1.png)
+![1-1](./res/Screenshots/1-01.png)
 
 ### 2 && 3
 
@@ -30,7 +30,7 @@ img.at<Vec3b>(i, j) = Vec3b(average, average, average);
 感觉 `=` 相当于是引用，而真正地复制可以用 `a = b.clone()` `b.CopyTo(a)`。
 `clone()` 实际上是新建一个 `Mat m` 然后执行 `CopyTo`，再返回 `m`。
 
-![1-2](./res/Screenshots/1-2.png)
+![1-2](./res/Screenshots/1-02.png)
 
 ### 4
 
@@ -43,6 +43,8 @@ channels.at(i) // 012 BGR
 // 通道合并
 merge(channels, mergeIMG);
 ```
+
+![1-4](./res/Screenshots/1-04.png)
 
 ### 5
 
@@ -67,6 +69,7 @@ putText(img, text, position, fontFace, fontScale, color);
 capture.get(CAP_PROP_FPS)
 ```
 
+![1-5](./res/Screenshots/1-05.png)
 
 ### 6
 
@@ -86,6 +89,8 @@ void rectangle(InputOutputArray img, Point pt1, Point pt2,
                int lineType = LINE_8, int shift = 0);
 ```
 
+![1-6](./res/Screenshots/1-06.png)
+
 ### 7
 
 Gamma 矫正
@@ -97,6 +102,9 @@ GammaTable[i] = p * 256 - 0.5; // 反归一化
 
 从显示效果上来看可以让人眼所看到的黑白对比增加，应该是相当于增加了对比度吧，在应用中的化可以让我们看黑暗中的东西看得更清楚
 
+![1-7](./res/Screenshots/1-07_1.png)
+![1-7](./res/Screenshots/1-07_2.png)
+
 ### 8
 
 HSV 转换，颜色提取
@@ -106,6 +114,8 @@ cvtColor(src, HSVMat, COLOR_BGR2HSV);
 
 inRange(hsvMat, Scalar(minH, minS, minV), Scalar(maxH, maxS, maxV), detectMat);
 ```
+
+![1-8](./res/Screenshots/1-08.png)
 
 ### 9
 
@@ -119,9 +129,9 @@ Mat getStructuringElement(int shape, Size ksize, Point anchor = Point(-1,-1));
 
 // erode 腐蚀  dilate 膨胀  kernel 结构元素
 void erode( InputArray src, OutputArray dst, InputArray kernel,
-Point anchor = Point(-1,-1), int iterations = 1,
-int borderType = BORDER_CONSTANT,
-const Scalar& borderValue = morphologyDefaultBorderValue() );
+			Point anchor = Point(-1,-1), int iterations = 1,
+			int borderType = BORDER_CONSTANT,
+			const Scalar& borderValue = morphologyDefaultBorderValue() );
 ```
 
 开运算：先腐蚀后膨胀
@@ -177,6 +187,9 @@ int connectedComponentsWithStats(InputArray image, OutputArray labels,
                                  int connectivity = 8, int ltype = CV_32S);
 ```
 
+![1-10](./res/Screenshots/1-10.png)
+![1-10](./res/Screenshots/1-11.png)
+
 ### 12
 
 ```c++
@@ -192,3 +205,39 @@ GaussianBlur(frame, GaussianBlurMat, Size size, x, y);
 ```c++
 Canny(grayMat, edgeMat, edgeThresh, edgeThresh * 3);
 ```
+
+![1-13](./res/Screenshots/1-13.png)
+
+### 14
+
+#### 1
+
+最开始直接尝试各种滤波，但是除了脸部区域其他地方也会变模糊。
+
+然后尝试连通块检测，想找到脸部区域的连通块，仅对脸部区域滤波。最开始碰到的问题就是太多小个连通块了，不知道脸部的连通块是第几个，后面想到用 `GaussianBlur` 可以把小的全部先过滤了。
+
+获得连通块滤波之后需要叠加，一开始只想到遍历整个图像进行连通块区域的覆盖，后面搜到可以直接
+
+```c++
+ROI = src(Rcet(x, y, width, height))
+```
+
+操作 `ROI` 的时候 `src` 中相对于区域也回改变。但是发现用 `medianBlur` 的时候是可行的，换成了 `bilateralFilter` 就失效了，`src` 中的区域不会改变，即使我之后再把滤波的结果拷贝给 `ROI` 也不行，现在还不知道为什么
+
+但是这个方法操作的是一个矩形，并不是单纯的脸部，还是会有其他区域模糊的问题。搜索之后又找到一个新的方法：
+
+通过连通块检测得到的 `labelsMat` 对脸部区域做一个 `mask`，脸部为 255（黑），其他区域为 0（黑），然后通过 `bitwise_and` 获取 `src` 的脸部
+
+```c++
+bitwise_and(src, maskMat, faceMat);
+```
+
+这样出来的脸部就不再是一个矩形了，这样滤波再叠加就基本没问题了，在叠加的时候也发现了 copyTo 的新用法
+
+```c++
+// mask 和 image 重叠以后把 mask 中像素值为 0（黑色）的点对应的 image 中的点变为透明，而保留其他点
+image.copyTo(dst, mask)
+```
+
+![1-14](./res/Screenshots/1-14_1.png)
+![1-14](./res/Screenshots/1-14_2.png)
