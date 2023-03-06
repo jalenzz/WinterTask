@@ -1,0 +1,21 @@
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+# parent
+# ├── yolov5
+# └── datasets
+#     └── 1k_train
+
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: ../datasets/1k_train
+train: # train images (relative to 'path')  16551 images
+  - images/train
+val: # val images (relative to 'path')  4952 images
+  - images/val
+test: # test images (optional)
+  - images/test
+
+# Classes
+names:
+  0: coke
+  1: fanta
+  2: sprite

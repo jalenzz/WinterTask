@@ -1,0 +1,3 @@
+[submodule "ImageAugment"]
+	path = ImageAugment
+	url = git@github.com:jalenzz/ImageAugment.git
